@@ -3,9 +3,7 @@
 Adapted from [sql_ABET_analyzer](https://github.com/sronilsson/sql_ABET_analyzer) courtesy of sronilsson. This package intended for slightly different goals: to take a daily updated ABETdb file, automate data upload to Google Drive, and output animal-specific files organized by animal ID and date run. Should not require SQL knowledge to operate. 
 
 #### Coverts Campden Lafayette [ABETdb touchscreen databases](http://lafayetteneuroscience.com/products/abetii-touch-screen-software) to nested dicts saved as JSON or PKL. 
-
-![alt-text-1](images/Pic1.jpg "Touchscreen operant box version 1") ![alt-text-1](images/Pic2.jpg "Touchscreen operant box version 2")
-
+r
 Designed to save time by extracting raw ABET data and outputting it in forms that can be more easily manipulated by novice Python coders in a variety of formats. Aimed to be light, flexible, and easy to automate. Should come with easy-to-run daily crontab script. Work in progress. 
 
 To run, place all databases (.ABETdb files) that should be analysed in same folder as the program and run abet_cal.py.
