@@ -1,24 +1,14 @@
 ## ABET SQL analyzer in python 3.x
 
-#### Coverts Campden Lafayette [ABETdb touchscreen databases](http://lafayetteneuroscience.com/products/abetii-touch-screen-software) to [SQL](https://docs.python.org/2/library/sqlite3.html) and analyses [rCPT data](https://campdeninstruments.com/products/image-cpt-mice) generated in the Campden Lafayette system. The output provided in two multi-sheet excel files.
+Adapted from [sql_ABET_analyzer](https://github.com/sronilsson/sql_ABET_analyzer) courtesy of sronilsson. This package intended for slightly different goals: to take a daily updated ABETdb file, automate data upload to Google Drive, and output animal-specific files organized by animal ID and date run. Should not require SQL knowledge to operate. 
+
+#### Coverts Campden Lafayette [ABETdb touchscreen databases](http://lafayetteneuroscience.com/products/abetii-touch-screen-software) to nested dicts saved as JSON or PKL. 
 
 ![alt-text-1](images/Pic1.jpg "Touchscreen operant box version 1") ![alt-text-1](images/Pic2.jpg "Touchscreen operant box version 2")
 
-Can save time, and produces more performance variables (about 70 organised behavioural outcomes measures) than default ABET method. 
-- The program can save time as databases doesn't have to be analysed separately, e.g., run a single analysis on as many ABETdb files you want. 
-- The program recognises the Animal IDs even though the animal was run on different sets and stored in different databases.
-- The program calculates collapsed mean, for all the sessions for each animal that the user specified to analyse, for all outcomes variables, in seperate excel sheet. 
+Designed to save time by extracting raw ABET data and outputting it in forms that can be more easily manipulated by novice Python coders in a variety of formats. Aimed to be light, flexible, and easy to automate. Should come with easy-to-run daily crontab script. Work in progress. 
 
 To run, place all databases (.ABETdb files) that should be analysed in same folder as the program and run abet_cal.py.
-
-##### The CLI program gives six options for specifying which sessions to analyse:
-
-* 1 - Animal IDs: Extract and Analyse data defined by animal IDs
-* 2 - Calender: Extract and Analyse data defined by experiment dates
-* 3 - Animal IDs / Calender: Extract and Analyse data defined by experiment dates AND animal IDs
-* 4 - Schedule: Extract and Analyse data defined by schedule/stage name(s)
-* 5 - Computer: Extract and Analyse data from specific computer(s)
-* 6 - All data: Extract and Analyse entire database(s)
 
 ##### The program extracts then extracts the following, standard, behavioural variables for each session, as well as collapsed descriptive statistics for the analyzed sessions:
 
