@@ -19,8 +19,8 @@ def latencyCalc(currentSID, currentDB):
     c.execute("CREATE TABLE IncorrectResponseLatencies (IncorrectResponseTimes INTEGER)")
     c.execute("CREATE TABLE RewardRetrieval (HitTime integer, RetrievalTime integer, RetrievalLatency integer)")
     conn.commit()
-    
-    
+
+
     #CALCULATE ALL RESPONSE LATENCIES
     stimONSETtimes = c.execute("SELECT DTime FROM tbl_data WHERE (SID = ? AND DEffectText = ?) ORDER BY DTime", (currentSID, str('Display Image')))
     stimONSETtimes = stimONSETtimes.fetchall()

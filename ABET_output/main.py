@@ -2,6 +2,15 @@
 Contains the bones of the code I'm pulling from sql_ABET_analyzer; as run, should check "inputs" folder for .ABETdb files, process any databases there, and print files for each run schedule named by the animal ID + date into the output folder. 
 """
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+#actually used
+import os
+import subprocess
+
+=======
+=======
+>>>>>>> parent of c489b00... adding new pipeline data
 import sqlite3
 import os
 import time
@@ -13,6 +22,7 @@ from createSQLiteDBs import createSQLiteDBs
 from summary import summaryPres
 from remSess import remSess
 from sortCSVfile import sortCSVfile
+>>>>>>> parent of c489b00... adding new pipeline data
 
 input1 = 0 #specifying what 
 extractSet = 1
@@ -28,6 +38,13 @@ for i in os.listdir(os.curdir):                             #find file names
 if i.__contains__(".ABETdb"):
     fileName.append(i)
 for i in fileName:                                          #convert each found file to csv files and place them in folder
+<<<<<<< HEAD
+<<<<<<< HEAD
+    Pcommand = "bash mdb-export-all.sh " + i
+
+=======
+=======
+>>>>>>> parent of c489b00... adding new pipeline data
 Pcommand = "bash mdb-export-all.sh " + i
 p = subprocess.Popen(Pcommand, stdout = subprocess.PIPE, close_fds = True, shell = True)
 stdout, stderr = p.communicate()
@@ -43,3 +60,4 @@ dbName, dbExt = fileName[loop].split('.')
 folderRM = dbName
 dbName = dbName + str('.db')
 DBsFound.append(dbName)
+>>>>>>> parent of c489b00... adding new pipeline data
