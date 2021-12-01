@@ -31,10 +31,11 @@ for j in thisSIDlist: #within each day....
     thisSch = scheduleDF.loc[j]
     if thisSch.SName == 'TestLines-PAL':
         continue
-    thisData = dataDF[dataDF.SID == j]
+    thisData = dataDF[dataDF.SID == j] #"give me all the data that is under SID value j"
     noteMatrix = notesDF[notesDF.SID==j]
     thisNotes = pd.DataFrame(data=list(noteMatrix.NValue),index=noteMatrix.NName).T
-    outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.SName,])
+    totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"])
+    outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.SName,totalNumTrials,,])
 
 
 #useful bug checking scripts
