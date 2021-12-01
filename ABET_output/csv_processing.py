@@ -22,6 +22,7 @@ SIDlist = dataDF.SID.unique()
 #identifying by date--optionally, shrink this down to the SIDs run on a particular day
 for i in scheduleDF.date.unique():
 
+#current issue: need to identify what godawful thing signifies a 'correct trial' in the existing schedule code so I can put in percent correct; can add reversal later 
 
 scheduleDay = scheduleDF[scheduleDF.date == i]
 thisSIDlist = thisDay.index.unique() #at which point we can define SIDlist as these numbers only. remember, for scheduleDF but NOT dataDF the scheduleID is the index ID.
