@@ -21,11 +21,11 @@ SIDlist = dataDF.SID.unique()
 
 #identifying by date--optionally, shrink this down to the SIDs run on a particular day
 for i in scheduleDF.date.unique():
-
+    continue
 #current issue: need to identify what godawful thing signifies a 'correct trial' in the existing schedule code so I can put in percent correct; can add reversal later 
 
 scheduleDay = scheduleDF[scheduleDF.date == i]
-thisSIDlist = thisDay.index.unique() #at which point we can define SIDlist as these numbers only. remember, for scheduleDF but NOT dataDF the scheduleID is the index ID.
+thisSIDlist = scheduleDay.index.unique() #at which point we can define SIDlist as these numbers only. remember, for scheduleDF but NOT dataDF the scheduleID is the index ID.
 outputSummary = []
 outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted','PercentCorrect','numTrialsCorrect','numReversals']
 for j in thisSIDlist: #within each day....
@@ -36,7 +36,7 @@ for j in thisSIDlist: #within each day....
     noteMatrix = notesDF[notesDF.SID==j]
     thisNotes = pd.DataFrame(data=list(noteMatrix.NValue),index=noteMatrix.NName).T
     totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"])
-    outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.SName,totalNumTrials,,])
+    outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.SName,totalNumTrials])
 
 
 #useful bug checking scripts
@@ -44,3 +44,6 @@ for k in thisData.DEventText.unique():
     print('%s,%s' % (k, len(thisData[thisData.DEventText == k])))
 
 j = 447
+
+#note for self: "percent correct" only really applies to some schedules: 80/20, 90/10, 100/1, but *not* BANDIT necessarily or the very early schedules. get a list: which schedules include this information, and under what nomenclature? 
+#schedules with metrics for 'correct': cue no reward 90-10 spatial built in reversal...
