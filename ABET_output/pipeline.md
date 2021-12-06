@@ -20,6 +20,8 @@ for daily-report spreadsheet:
     # trials
     percent accuracy
     # reversals
+    
+Notes: It is imperative for scripts like this that all schedules use the same terms for user-adjustable ABET schedules. Verify that this is the case with existing schedules before proceeding. 
 
 
   Dependencies:
