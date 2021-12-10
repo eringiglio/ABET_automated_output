@@ -3,9 +3,9 @@ Intended to pull the output of any given DB folder into a set of folders and fil
 """
 import os
 import pandas as pd
-import datetime.datetime as dt
+import datetime as dt
 
-dbFolder = os.curdir + '/outputs/female9-12_DB27/'
+dbFolder = os.path.abspath(os.curdir + '/outputs/female9-12_DB27/')
 
 dataDF = pd.read_csv(dbFolder+'tbl_Data.csv')
 scheduleDF = pd.read_csv(dbFolder+'tbl_Schedules.csv',index_col='SID')
@@ -22,13 +22,17 @@ SIDlist = dataDF.SID.unique()
 #identifying by date--optionally, shrink this down to the SIDs run on a particular day
 for i in scheduleDF.date.unique():
     continue
-#current issue: need to identify what godawful thing signifies a 'correct trial' in the existing schedule code so I can put in percent correct; can add reversal later 
-
+    
+dateFolder = os.path.abspath(dbFolder + '/' + i.strftime('%m-%d-%y') + '/') 
+if os.path.isfile(dateFolder) is False: #makes sure we have a date-specific outputs folder for individual animals' information 
+    os.makedirs(dateFolder)
 scheduleDay = scheduleDF[scheduleDF.date == i]
 thisSIDlist = scheduleDay.index.unique() #at which point we can define SIDlist as these numbers only. remember, for scheduleDF but NOT dataDF the scheduleID is the index ID.
 outputSummary = []
-outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted','PercentCorrect','numTrialsCorrect','numReversals']
+#outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted','PercentCorrect','numTrialsCorrect','numReversals']
+outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted'] #v2 will involve figuring some of this out but it would actually be quite useful to have the individual outputs per animal 
 for j in thisSIDlist: #within each day....
+    
     thisSch = scheduleDF.loc[j]
     if thisSch.SName == 'TestLines-PAL':
         continue
@@ -37,7 +41,7 @@ for j in thisSIDlist: #within each day....
     thisNotes = pd.DataFrame(data=list(noteMatrix.NValue),index=noteMatrix.NName).T
     totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"])
     outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.SName,totalNumTrials])
-
+    #make the individual CSV per animal 
 
 #useful bug checking scripts
 for k in thisData.DEventText.unique():
