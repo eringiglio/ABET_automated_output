@@ -28,7 +28,7 @@ for i in scheduleDF.date.unique():
     thisSIDlist = scheduleDay.index.unique() #at which point we can define SIDlist as these numbers only. remember, for scheduleDF but NOT dataDF the scheduleID is the index ID.
     outputSummary = []
     #outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted','PercentCorrect','numTrialsCorrect','numReversals']
-    outputHeaders = ['mouseID','date_run','start_time','scheduleName','numTrialsCompleted'] #v2 will involve figuring some of this out but it would actually be quite useful to have the individual outputs per animal
+    outputHeaders = ['mouseID','date_run','start_time','scheduleName','numTrialsCompleted','maxTrialLength','timeTrialCompleted','whoRan'] #v2 will involve figuring some of this out but it would actually be quite useful to have the individual outputs per animal
     for j in thisSIDlist: #within each day....
         thisSch = scheduleDF.loc[j]
         if thisSch.SName == 'TestLines-PAL':
@@ -39,10 +39,16 @@ for i in scheduleDF.date.unique():
         totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"].DValue1)
         #make the individual CSV per animal 
         thisData['scheduleID'] = thisSch.SName
-        outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.time,thisSch.SName,totalNumTrials])
+        animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_'+ i.strftime('%m-%d-%y') + '.csv'
+        thisData.to_csv(animal_outfile)
+        for key in thisNotes.keys():
+            if 'who' in key.lower():
+                whoKey = key #we don't name all the keys the same thing but some variant on 'who ran' is there, so I instruct the program to hunt through the keys for the name 'who'
+        outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.time,thisSch.SName,totalNumTrials,thisNotes.Max_Schedule_Time.loc[0],max(thisData.DTime),thisNotes[whoKey].loc[0]])
     #daily summary csv
     dailyDF = pd.DataFrame(data=outputSummary,columns=outputHeaders)
     dailyFile = dateFolder + '/' + i.strftime('%m-%d-%y') + '_summary.csv'
+    dailyDF.to_csv(dailyFile)
 
 #note for self: "percent correct" only really applies to some schedules: 80/20, 90/10, 100/1, but *not* BANDIT necessarily or the very early schedules. get a list: which schedules include this information, and under what nomenclature?
 #schedules with metrics for 'correct': cue no reward 90-10 spatial built in reversal...
