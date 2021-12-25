@@ -17,11 +17,9 @@ def global_datapull(db):
     #here we will want to specify
     scheduleDF['date'] = [dt.datetime.strptime(i, '%m/%d/%y %H:%M:%S').date() for i in scheduleDF.SRunDate]
     scheduleDF['time'] = [dt.datetime.strptime(i, '%m/%d/%y %H:%M:%S').time() for i in scheduleDF.SRunDate]
-
     #finding all animals in the dataframe...
     SIDlist = dataDF.SID.unique()
     dailyList = []
-
     #identifying by date--optionally, shrink this down to the SIDs run on a particular day
     for i in scheduleDF.date.unique():
         dateFolder = os.path.abspath(dbFolder + '/' + i.strftime('%m-%d-%y') + '/')
@@ -33,28 +31,28 @@ def global_datapull(db):
         #outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted','PercentCorrect','numTrialsCorrect','numReversals','maxTrialLength','timeTrialCompleted','whoRan']
         outputHeaders = ['mouseID','date_run','start_time','chamber','scheduleName','numTrialsCompleted','maxTrialLength','timeTrialCompleted','whoRan'] #v2 will involve figuring some of this out but it would actually be quite useful to have the individual outputs per animal
         #still missing: 'PercentCorrect','numTrialsCorrect','numReversals',
-    for j in thisSIDlist: #within each day....
-        thisSch = scheduleDF.loc[j]
-        if thisSch.SName == 'TestLines-PAL':
-            continue
-        thisData = dataDF[dataDF.SID == j] #"give me all the data that is under SID value j"
-        noteMatrix = notesDF[notesDF.SID==j]
-        thisNotes = pd.DataFrame(data=list(noteMatrix.NValue),index=noteMatrix.NName).T
-        totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"].DValue1)
-        #make the individual CSV per animal
-        thisData['scheduleID'] = thisSch.SName
-        animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_'+ i.strftime('%m-%d-%y') + '.csv'
-        thisData.to_csv(animal_outfile,index=False)
-        for key in thisNotes.keys():
-            if 'who' in key.lower():
-                whoKey = key #we don't name all the keys the same thing but some variant on 'who ran' is there, so I instruct the program to hunt through the keys for the name 'who'
-        outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.time,thisSch.SEnviro,thisSch.SName,totalNumTrials,thisNotes.Max_Schedule_Time.loc[0],max(thisData.DTime),thisNotes[whoKey].loc[0]])
+        for j in thisSIDlist: #within each day....
+            thisSch = scheduleDF.loc[j]
+            if thisSch.SName == 'TestLines-PAL':
+                continue
+            thisData = dataDF[dataDF.SID == j] #"give me all the data that is under SID value j"
+            noteMatrix = notesDF[notesDF.SID==j]
+            thisNotes = pd.DataFrame(data=list(noteMatrix.NValue),index=noteMatrix.NName).T
+            totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"].DValue1)
+            #make the individual CSV per animal
+            thisData['scheduleID'] = thisSch.SName
+            animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_'+ i.strftime('%m-%d-%y') + '.csv'
+            thisData.to_csv(animal_outfile,index=False)
+            for key in thisNotes.keys():
+                if 'who' in key.lower():
+                    whoKey = key #we don't name all the keys the same thing but some variant on 'who ran' is there, so I instruct the program to hunt through the keys for the name 'who'
+            outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.time,thisSch.SEnviro,thisSch.SName,totalNumTrials,thisNotes.Max_Schedule_Time.loc[0],max(thisData.DTime),thisNotes[whoKey].loc[0]])
         #daily summary csv
         dailyDF = pd.DataFrame(data=outputSummary,columns=outputHeaders)
         dailyFile = dateFolder + '/' + i.strftime('%m-%d-%y') + '_summary.csv'
         dailyDF.to_csv(dailyFile,index=False)
         dailyList.append(dailyFile) #just a list for recordkeeping if you want to check it
-    return()
+    return(dailyList)
 
 #note for self: "percent correct" only really applies to some schedules: 80/20, 90/10, 100/1, but *not* BANDIT necessarily or the very early schedules. get a list: which schedules include this information, and under what nomenclature?
 #schedules with metrics for 'correct': cue no reward 90-10 spatial built in reversal...
