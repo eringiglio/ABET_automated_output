@@ -23,7 +23,8 @@ for i in fileName:                                          #convert each found 
 
 #this will create a bunch of files in the output folder. next... 
 dbList = os.listdir(outputDir)
+dbList.sort()
 for db in dbList:
     print(db)
-    global_datapull(db)
+    out = global_datapull(db)
 

@@ -18,8 +18,10 @@ for db in dbList:
 
 #total list of dates for the list 
 dateList=list(set(dateList))
+dateList.sort()
 
 for date in dateList:
+    print(date)
     newDateFolder = finalFolder+date
     if os.path.isdir(newDateFolder) is False:
         os.makedirs(newDateFolder)
