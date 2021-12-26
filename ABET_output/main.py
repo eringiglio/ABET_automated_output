@@ -9,6 +9,8 @@ from ABET_output.global_csv_processing import global_datapull
 
 inputDir = 'G:/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files should go into the input folder.
 outputDir = 'G:/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.  
+finalFolder = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/"
+dbBackupDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/unpacked_databases/"
 
 workingDir = os.getcwd()
 loop = 0
@@ -21,10 +23,20 @@ for i in fileName:                                          #convert each found 
     Pcommand = workingDir + "/mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written 
     subprocess.run(Pcommand)
 
-#this will create a bunch of files in the output folder. next... 
+#let's back these up here. no reason to waste perfectly good csv explosions. send those...
 dbList = os.listdir(outputDir)
 dbList.sort()
-for db in dbList:
+
+#this will create a bunch of files in the output folder. next, pull those csvs apart into the animal-day csvs with summaries...... 
+for db in dbList: #for every database in our list of databases...
     print(db)
-    out = global_datapull(db)
+    newDBdir = dbBackupDir + db + '/'
+    if os.path.isdir(dbBackupDir) is False: #if there isn't already a folder for this database in the folder for backing up the database CSV intermediate files, make one 
+        os.makedirs(dbBackupDir)
+    oldDBdir = outputFolder+db+'/'
+    for file in os.listdir(oldDBdir): #"for every csv file in the folder of interest, read it, move it over to the new directory for storing these, and write it over there so we have a record of the intermediate file"
+        thisFile = pd.read_csv(oldDBdir+file) #read old file
+        newFN = newDBdir + file #make a new path to put a new file into
+        thisFile.to_csv(newFN,index=False) #put this csv at that place 
+    out = global_datapull(db) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips 
 
