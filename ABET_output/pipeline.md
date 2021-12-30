@@ -20,8 +20,8 @@ for daily-report spreadsheet:
     # trials
     percent accuracy
     # reversals
-    
-Notes: It is imperative for scripts like this that all schedules use the same terms for user-adjustable ABET schedules. Verify that this is the case with existing schedules before proceeding. 
+
+Notes: It is imperative for scripts like this that all schedules use the same terms for user-adjustable ABET schedules. Verify that this is the case with existing schedules before proceeding.
 
 
   Dependencies:
@@ -29,4 +29,3 @@ Notes: It is imperative for scripts like this that all schedules use the same te
   Python
     pandas
     datetime
-  

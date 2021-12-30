@@ -10,7 +10,7 @@ To run, place all databases (.ABETdb files) that should be analysed in the input
 
 ##### Dependencies
 * The microsoftdB --> SQLite conversion requires [mdb-export-all](https://github.com/pavlov99/mdb-export-all)
-  this requires mdb-tools (installable using ''Install-Module -Name mdb-tools'' in PowerShell and in everything else "apt-get install mdbtools" should work okay--test this later)
+  this requires mdb-tools (installable using ''Install-Module -Name mdb-tools'' in PowerShell as an Administrator and in everything else "apt-get install mdbtools" should work okay--test this later)
 * statistics
 * pandas
 * sqlite3
