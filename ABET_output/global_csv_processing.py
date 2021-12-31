@@ -8,7 +8,7 @@ import pandas as pd
 import datetime as dt
 import subprocess
 
-def global_datapull(db): 
+def global_datapull(db):
     dbFolder = os.path.abspath(os.curdir + '/outputs/' + db + '/') #get the folder path for where I am right now
     dataDF = pd.read_csv(dbFolder+'/tbl_Data.csv') #note that this syntax, whether or not there's the slash, seems to be an annoying powershell thing that may need tweaking
     scheduleDF = pd.read_csv(dbFolder+'/tbl_Schedules.csv',index_col='SID')
@@ -38,7 +38,10 @@ def global_datapull(db):
             thisData = dataDF[dataDF.SID == j] #"give me all the data that is under SID value j"
             noteMatrix = notesDF[notesDF.SID==j]
             thisNotes = pd.DataFrame(data=list(noteMatrix.NValue),index=noteMatrix.NName).T
-            totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"].DValue1)
+            try:
+                totalNumTrials = max(thisData[thisData.DEffectText=="_Trial_Counter"].DValue1)
+            except:
+                totalNumTrials = 0
             #make the individual CSV per animal
             thisData['scheduleID'] = thisSch.SName
             animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_'+ i.strftime('%m-%d-%y') + '.csv'

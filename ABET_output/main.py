@@ -48,9 +48,10 @@ for db in dbList: #for every database in our list of databases...
         os.makedirs(newDBdir)
     oldDBdir = outputDir+db+'/'
     for file in os.listdir(oldDBdir): #"for every csv file in the folder of interest, read it, move it over to the new directory for storing these, and write it over there so we have a record of the intermediate file"
-        thisFile = pd.read_csv(oldDBdir+file) #read old file
-        newFN = newDBdir + file #make a new path to put a new file into
-        thisFile.to_csv(newFN,index=False) #put this csv at that place
+        if '.csv' in file:
+            thisFile = pd.read_csv(oldDBdir+file) #read old file
+            newFN = newDBdir + file #make a new path to put a new file into
+            thisFile.to_csv(newFN,index=False) #put this csv at that place
     out = global_datapull(db) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips
 
 merge_chambers(outputDir,finalDir,summaryDir)
