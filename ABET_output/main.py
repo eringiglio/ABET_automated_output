@@ -9,11 +9,19 @@ import pandas as pd
 from ABET_output.global_csv_processing import global_datapull
 from ABET_output.merge_chambers import merge_chambers
 
+"""
+*** USER EDITED BLOCK GOES HERE: WRITE IN FULL PATHS (e.g. example)
+"""
+
 inputDir = 'G:/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files should go into the input folder.
 outputDir = 'G:/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.
 finalDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
 dbBackupDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
 summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/daily_summaries/" #another copy of each daily summary file goes here
+
+"""
+***
+"""
 
 """
 for linux
@@ -31,6 +39,8 @@ for i in os.listdir(inputDir):                             #find file names in i
         fileName.append(i)
 
 fileName.sort()
+
+fileName = ['male1-4_DB24.ABETdb','male5-8_DB23.ABETdb']
 
 for i in fileName:                                          #convert each found file to csv files and place them in folder
     Pcommand = workingDir + "/mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written

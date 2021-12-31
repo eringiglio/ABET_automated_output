@@ -37,5 +37,7 @@ def merge_chambers(outputFolder,finalFolder,summaryFolder):
                             newDF.to_csv(newSF,index=False)
                         except:
                             thisFile.to_csv(newFN,index=False)
+                            newSF = summaryFolder+file
+                            thisFile.to_csv(newSF,index=False)
                     else:
                         thisFile.to_csv(newFN,index=False)
