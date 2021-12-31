@@ -17,7 +17,7 @@ inputDir = 'G:/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files shou
 outputDir = 'G:/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.
 finalDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
 dbBackupDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
-summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/daily_summaries/" #another copy of each daily summary file goes here
+summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/daily_summaries/" #another copy of each daily summary file goes here
 
 """
 ***
