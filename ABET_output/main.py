@@ -15,6 +15,15 @@ finalDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all o
 dbBackupDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
 summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/daily_summaries/" #another copy of each daily summary file goes here
 
+"""
+for linux
+inputDir = '/mnt/g/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files should go into the input folder.
+outputDir = '/mnt/g/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.
+finalDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
+dbBackupDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
+summaryDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/daily_summaries/" #another copy of each daily summary file goes here
+"""
+
 workingDir = os.getcwd()
 fileName = []
 for i in os.listdir(inputDir):                             #find file names in input folder
