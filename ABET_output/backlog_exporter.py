@@ -40,8 +40,6 @@ for i in os.listdir(inputDir):                             #find file names in i
 
 fileName.sort()
 
-fileName = ['male1-4_DB24.ABETdb','male5-8_DB23.ABETdb']
-
 for i in fileName:                                          #convert each found file to csv files and place them in folder
     Pcommand = workingDir + "/mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written
     subprocess.run(Pcommand)
