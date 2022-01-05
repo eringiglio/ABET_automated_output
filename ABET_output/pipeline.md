@@ -6,26 +6,34 @@ for each day, should export:
 2) each animal should have its own folder. per day, script should export a csv with all data specific to that animal for that day into the animal's folder. name to follow ANIMALNAME_DD-MM-YY_HH-MM-SS format, with HH-MM-SS being the time at which the schedule started. animal folders should go into larger organizing folders specifying project (i.e. artists, plants, harrypotters).
 
 
-find all db files
+find all db files - for ONGOING automated work, identify specific recently updated ABETdb files from chamber PCs, copy these to directory for storage and use, and flag for export and updating.
+
 take db file. export all .csv files.
+
 for each db:
+
 sort outputs by day run
+
 within each day:
+
 sort outputs by individual animal
+
 increment each to an individual csv
+
 for daily-report spreadsheet:
   animal name
   schedule name
   calculate overall metrics:
     # trials
-    percent accuracy
-    # reversals
+    percent accuracy - proven to be schedule dependent, will assess later
+    # reversals - proven to be schedule dependent, will assess later
 
 Notes: It is imperative for scripts like this that all schedules use the same terms for user-adjustable ABET schedules. Verify that this is the case with existing schedules before proceeding.
 
 
-  Dependencies:
+Dependencies:
   mdb-export-all.sh, see mdb requirements in sqlABETanalyzer
   Python
     pandas
     datetime
+  rclone (check_new_databases)
