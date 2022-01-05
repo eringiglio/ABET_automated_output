@@ -13,7 +13,7 @@ import shutil
 
 def check_new_databases():
     db_inPath = "H:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/"
-    for db in os.listdir(db_inPath): #just remove everything in this folder to make things nice and tidy 
+    for db in os.listdir(db_inPath): #just remove everything in this folder to make things nice and tidy
         os.remove(os.join(db_inPath,db))
     copyDict = {
         "H:/Other computers/chamber 1-4/ABET System Folder/" : "H:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch1-4/",
@@ -28,11 +28,11 @@ def check_new_databases():
                 fullPath = i+j
                 stat_result = os.stat(fullPath)
                 lastModified = datetime.fromtimestamp(stat_result.st_mtime)
-                if lastModified + timedelta(days=1) > datetime.now(): #if you have last modified the ABETdb file within 1 days...
+                if lastModified + timedelta(days=5) > datetime.now(): #if you have last modified the ABETdb file within 1 days...
                     print(j)
                     newPath = copyDict[i] + j
                     dbPath = db_inPath + j
                     dbList.append(j)
-                    shutil.copy(fullPath,newPath) #...copy that file to the other directory where they live.
+                    shutil.copy(fullPath,newPath) #...copy that file to the other directory where they live as backup.
                     shutil.copy(fullPath,dbPath) #and also, ideally, to a single input folder I can just pull from because c'mon.
     return(dbList)
