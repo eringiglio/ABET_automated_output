@@ -24,7 +24,7 @@ for i in copyDict:
             fullPath = i+j
             stat_result = os.stat(fullPath)
             lastModified = datetime.fromtimestamp(stat_result.st_mtime)
-            if lastModified + timedelta(days=5) > datetime.now(): #if you have last modified the ABETdb file within 5 days...
+            if lastModified + timedelta(days=1) > datetime.now(): #if you have last modified the ABETdb file within 1 days...
                 print(j)
                 newPath = copyDict[i] + j
                 shutil.copy(fullPath,newPath) #...copy that file to the other directory where they live.
