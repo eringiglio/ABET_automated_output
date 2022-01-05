@@ -36,4 +36,3 @@ Dependencies:
   Python
     pandas
     datetime
-  rclone (check_new_databases)

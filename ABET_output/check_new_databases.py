@@ -8,8 +8,6 @@ import os
 import numpy as np
 from datetime import datetime, timedelta
 
-rclone = "H:/Shared drives/Grissom Lab UMN/ABETdata/rclone-v1.57.0/rclone.exe" #should be the full path to rclone on your installation
-
 #this should be a dictionary of folders which you want to copy from a watched PC's ABET output directory to a secondary directory (to reduce any risk of file corruption while a database may be in use). Keys should be the original ABET System Folder location; values should be the location of this secondary directory.
 copyDict = {
     "H:/Other computers/chamber 1-4/ABET System Folder/" : "H:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch1-4/",

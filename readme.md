@@ -21,4 +21,3 @@ To run, place all databases (.ABETdb files) that should be analysed in the input
 * tabulate
 * glob
 * xlwt
-* rclone --> https://rclone.org/: my version is set up to store and sync everything to google drive; you might want to build versions that can work with other cloud storage options if you have them, and rclone works well for pretty much everything. 
