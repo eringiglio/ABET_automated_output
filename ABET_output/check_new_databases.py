@@ -1,8 +1,12 @@
 """
 Should check the computer files for any recent database updates, copy the new database files over to database directories in the ABETdb Google Drive, and unpack ONLY databases which have recently been updated.
+
+Because this file is looking at folders which are backed up to Google Drive, rather than at the shared drive we host the files on itself, we need to use rclone to check on and copy these files instead of standard Python file reading, copying, and moving protocols.
 """
+#import modules
 import pandas as pd
 import subprocess
+import numpy as np
 
 rclone = "H:/Shared drives/Grissom Lab UMN/ABETdata/rclone-v1.57.0/rclone.exe" #should be the full path to rclone on your installation
 
@@ -17,6 +21,5 @@ for i in copyDict:
     Pcommand = rclone + " ls " + copyDict[i]
     out = subprocess.run(Pcommand,capture_output=True)
 
-db = pd.read_table(out.stdout)
-
-list(out.stdout)
+#this results in a binary ist, but we want a list of strings...
+no.
