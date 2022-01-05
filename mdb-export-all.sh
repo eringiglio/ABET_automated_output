@@ -15,7 +15,7 @@ fullfilename=$1
 filename=$(basename "$fullfilename")
 dbname=${filename%.*}
 inputDir=$(dirname "$fullfilename")
-baseDir=${inputDir%/inputs}
+baseDir=${inputDir%/db_inputs}/unpacked_databases
 
 mkdir -p "outputs/$dbname"
 
