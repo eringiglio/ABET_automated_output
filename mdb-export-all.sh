@@ -17,9 +17,8 @@ dbname=${filename%.*}
 inputDir=$(dirname "$fullfilename")
 baseDir=${inputDir%/db_inputs}
 
-mkdir -p "outputs/$dbname"
+mkdir "$baseDir/unpacked_databases/$dbname"
 
 for table in $(mdb-tables "$fullfilename"); do
-    echo "Export table $table"
     mdb-export "$fullfilename" "$table" > "$baseDir/unpacked_databases/$dbname/$table.csv"
 done
