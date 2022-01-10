@@ -15,11 +15,11 @@ fullfilename=$1
 filename=$(basename "$fullfilename")
 dbname=${filename%.*}
 inputDir=$(dirname "$fullfilename")
-baseDir=${inputDir%/inputs}
+baseDir=${inputDir%/db_inputs}
 
 mkdir -p "outputs/$dbname"
 
 for table in $(mdb-tables "$fullfilename"); do
     echo "Export table $table"
-    mdb-export "$fullfilename" "$table" > "$baseDir/outputs/$dbname/$table.csv"
+    mdb-export "$fullfilename" "$table" > "$baseDir/unpacked_databases/$dbname/$table.csv"
 done
