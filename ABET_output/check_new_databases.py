@@ -14,7 +14,7 @@ import shutil
 def check_new_databases():
     db_inPath = "H:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/"
     for db in os.listdir(db_inPath): #just remove everything in this folder to make things nice and tidy
-        os.remove(os.join(db_inPath,db))
+        os.remove(os.path.join(db_inPath,db))
     copyDict = {
         "H:/Other computers/chamber 1-4/ABET System Folder/" : "H:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch1-4/",
         "H:/Other computers/chamber 5-8/ABET System Folder/" : "H:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch5-8/",
