@@ -24,8 +24,9 @@ summaryDir = "H:/Shared drives/Grissom Lab UMN/ABETdata/CSV/daily_summaries/" #a
 """
 
 #first, check for any recently updated databases
-
 dbList = check_new_databases()
+
+workingDir = os.getcwd()
 
 for i in dbList:                                          #convert each found file to csv files and place them in folder
     Pcommand = workingDir + "/mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written

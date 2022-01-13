@@ -13,10 +13,9 @@ from ABET_output.merge_chambers import merge_chambers
 *** USER EDITED BLOCK GOES HERE: WRITE IN FULL PATHS (e.g. example)
 """
 
-inputDir = 'G:/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files should go into the input folder.
-outputDir = 'G:/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.
+inputDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/" #ABETdb files should go into the input folder.
+outputDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
 finalDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
-dbBackupDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
 summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/daily_summaries/" #another copy of each daily summary file goes here
 
 """
@@ -28,7 +27,7 @@ for linux
 inputDir = '/mnt/g/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files should go into the input folder.
 outputDir = '/mnt/g/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.
 finalDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
-dbBackupDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
+outputDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
 summaryDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/daily_summaries/" #another copy of each daily summary file goes here
 """
 
@@ -51,7 +50,7 @@ dbList.sort()
 #this will create a bunch of files in the output folder. next, pull those csvs apart into the animal-day csvs with summaries......
 for db in dbList: #for every database in our list of databases...
     print(db)
-    newDBdir = dbBackupDir + db + '/'
+    newDBdir = outputDir + db + '/'
     if os.path.isdir(newDBdir) is False: #if there isn't already a folder for this database in the folder for backing up the database CSV intermediate files, make one
         os.makedirs(newDBdir)
     oldDBdir = outputDir+db+'/'
