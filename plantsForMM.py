@@ -14,12 +14,12 @@ MMdir = "G:/Shared drives/Grissom Lab UMN/Projects/Madison_Plants_2021_16pdel_ba
 
 for dateDir in os.listdir(CSVfolder):
     newDir = MMdir+dateDir
-    if os.path.isdir(newDir) == False:
-        os.makedirs(newDir)
     for file in os.listdir(CSVfolder+dateDir):
         plantFlag = 0 #bc I want to only copy the summary file for a day if there are any goddamn plants in it but not copy it a billion times, now I have a little flag to tell me whether there were plants in THIS dir
         for plant in plantList:
             if plant in file:
+                if os.path.isdir(newDir) == False:
+                    os.makedirs(newDir)
                 newFile = newDir+"/"+file
                 oldFile = CSVfolder+dateDir+"/"+file
                 shutil.copy(oldFile,newFile)
