@@ -24,10 +24,9 @@ summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/daily_summaries/" #a
 
 """
 for linux
-inputDir = '/mnt/g/My Drive/Coding/ABET_automated_output/inputs/' #ABETdb files should go into the input folder.
-outputDir = '/mnt/g/My Drive/Coding/ABET_automated_output/outputs/' #note that where the output files go to is written in the mdb-export file.
-finalDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
+inputDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/" #ABETdb files should go into the input folder.
 outputDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
+finalDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
 summaryDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdata/daily_summaries/" #another copy of each daily summary file goes here
 """
 
@@ -59,6 +58,6 @@ for db in dbList: #for every database in our list of databases...
             thisFile = pd.read_csv(oldDBdir+file) #read old file
             newFN = newDBdir + file #make a new path to put a new file into
             thisFile.to_csv(newFN,index=False) #put this csv at that place
-    out = global_datapull(db) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips
+    out = global_datapull(db,oldDBdir,finalDir) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips
 
 merge_chambers(outputDir,finalDir,summaryDir)
