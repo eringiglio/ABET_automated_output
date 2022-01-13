@@ -39,11 +39,11 @@ for i in os.listdir(inputDir):                             #find file names in i
 fileName.sort()
 
 for i in fileName:                                          #convert each found file to csv files and place them in folder
-    Pcommand = workingDir + "/mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written
+    Pcommand = workingDir + "mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written
     subprocess.run(Pcommand)
 
 #let's back these up here. no reason to waste perfectly good csv explosions. send those...
-dbList = os.listdir(outputDir)
+dbList = [x[0:len(x)-7] for x in fileName]
 dbList.sort()
 
 #this will create a bunch of files in the output folder. next, pull those csvs apart into the animal-day csvs with summaries......
