@@ -24,7 +24,7 @@ def check_new_databases():
     for i in copyDict:
         fileList = os.listdir(i)
         for j in fileList:
-            if '.ABETdb' in j:
+            if '.ABETdb' in j and 'TEST' not in j:
                 fullPath = i+j
                 stat_result = os.stat(fullPath)
                 lastModified = datetime.fromtimestamp(stat_result.st_mtime)
