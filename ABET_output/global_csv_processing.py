@@ -8,8 +8,7 @@ import pandas as pd
 import datetime as dt
 import subprocess
 
-def global_datapull(db):
-    dbFolder = os.path.abspath(os.curdir + '/outputs/' + db + '/') #get the folder path for where I am right now
+def global_datapull(db,dbFolder,outputFolder):
     dataDF = pd.read_csv(dbFolder+'/tbl_Data.csv') #note that this syntax, whether or not there's the slash, seems to be an annoying powershell thing that may need tweaking
     scheduleDF = pd.read_csv(dbFolder+'/tbl_Schedules.csv',index_col='SID')
     notesDF = pd.read_csv(dbFolder+'/tbl_Schedule_Notes.csv')
@@ -22,7 +21,7 @@ def global_datapull(db):
     dailyList = []
     #identifying by date--optionally, shrink this down to the SIDs run on a particular day
     for i in scheduleDF.date.unique():
-        dateFolder = os.path.abspath(dbFolder + '/' + i.strftime('%m-%d-%y') + '/')
+        dateFolder = os.path.abspath(outputFolder + '/' + i.strftime('%m-%d-%y') + '/')
         if os.path.isdir(dateFolder) is False: #makes sure we have a date-specific outputs folder for individual animals' information
             os.makedirs(dateFolder)
         scheduleDay = scheduleDF[scheduleDF.date == i]
@@ -53,7 +52,14 @@ def global_datapull(db):
         #daily summary csv
         dailyDF = pd.DataFrame(data=outputSummary,columns=outputHeaders)
         dailyFile = dateFolder + '/' + i.strftime('%m-%d-%y') + '_summary.csv'
-        dailyDF.to_csv(dailyFile,index=False)
+        try: 
+            oldSummary = pd.read_csv(dailyFile)
+            finDaily = pd.concat([oldSummary,dailyDF])
+        except:
+            finDaily = dailyDF
+        summaryCopy = outputFolder + 'daily_summaries/' + i.strftime('%m-%d-%y') + '_summary.csv'
+        finDaily.to_csv(dailyFile,index=False)
+        finDaily.to_csv(summaryCopy,index=False)
         dailyList.append(dailyFile) #just a list for recordkeeping if you want to check it
     return(dailyList)
 
