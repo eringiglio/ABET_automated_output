@@ -17,6 +17,7 @@ inputDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/" #ABETdb
 outputDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/unpacked_databases/" #raw unpacked csv files for each database go here
 finalDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/" #this is where all of the mouse-day files go, along with a copy of the daily summary for that day
 summaryDir = "G:/Shared drives/Grissom Lab UMN/ABETdata/CSV/daily_summaries/" #another copy of each daily summary file goes here
+linInputDir = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/" #ABETdb files should go into the input folder.
 
 """
 ***
@@ -39,7 +40,7 @@ for i in os.listdir(inputDir):                             #find file names in i
 fileName.sort()
 
 for i in fileName:                                          #convert each found file to csv files and place them in folder
-    Pcommand = workingDir + "mdb-export-all.sh", inputDir + i #mdb-export-all defines where these are written
+    Pcommand = "wsl","./mdb2.sh", linInputDir + i #mdb-export-all defines where these are written
     subprocess.run(Pcommand)
 
 #let's back these up here. no reason to waste perfectly good csv explosions. send those...
