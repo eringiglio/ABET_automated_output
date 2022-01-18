@@ -18,12 +18,27 @@ import os
 import subprocess
 import pandas as pd
 from ABET_output.global_csv_processing import global_datapull
-from ABET_output.merge_chambers import merge_chambers
 from ABET_output.check_new_databases import check_new_databases
 
-workingDir = os.getcwd()
+fileList = check_new_databases()
 
-dbList = check_new_databases()
-for i in dbList:                                          #convert each found file to csv files and place them in folder
+fileName = []
+for i in os.listdir(inputDir):                             #find file names in input folder
+    if i.__contains__(".ABETdb"):
+        fileName.append(i)
+
+fileName.sort()
+
+for i in fileName:                                          #convert each found file to csv files and place them in folder
     Pcommand = "wsl","./mdb2.sh", linInputDir + i #mdb-export-all defines where these are written
     subprocess.run(Pcommand)
+
+#let's back these up here. no reason to waste perfectly good csv explosions. send those...
+dbList = [x[0:len(x)-7] for x in fileName]
+dbList.sort()
+
+#this will create a bunch of files in the output folder. next, pull those csvs apart into the animal-day csvs with summaries......
+for db in dbList: #for every database in our list of databases...
+    print(db)
+    oldDBdir = outputDir+db+'/'
+    out = global_datapull(db,oldDBdir,finalDir) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips

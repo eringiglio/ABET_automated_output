@@ -43,7 +43,8 @@ def global_datapull(db,dbFolder,outputFolder):
                 totalNumTrials = 0
             #make the individual CSV per animal
             thisData['scheduleID'] = thisSch.SName
-            animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_'+ i.strftime('%m-%d-%y') + '.csv'
+            print(thisNotes['Animal ID'][0])
+            animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_' + str(thisData.SID.unique()[0]) + '_'+ i.strftime('%m-%d-%y') + '.csv'
             thisData.to_csv(animal_outfile,index=False)
             for key in thisNotes.keys():
                 if 'who' in key.lower():

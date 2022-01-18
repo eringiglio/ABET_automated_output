@@ -7,7 +7,6 @@ import os
 import subprocess
 import pandas as pd
 from ABET_output.global_csv_processing import global_datapull
-from ABET_output.merge_chambers import merge_chambers
 
 """
 *** USER EDITED BLOCK GOES HERE: WRITE IN FULL PATHS (e.g. example)
