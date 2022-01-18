@@ -1,5 +1,6 @@
-#I would like to have all these outputs go to single folders per date, not separated by chamber. So...
-
+"""
+This routine exists if you've created a bunch of output results that are getting dumped into a "results" intermediate folder before being added to the database proper. Useful mainly for adjusting and updates. EMG -01/18/22
+"""
 import os
 import pandas as pd
 import subprocess
