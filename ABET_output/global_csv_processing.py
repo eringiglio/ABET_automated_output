@@ -21,7 +21,7 @@ def global_datapull(db,dbFolder,outputFolder):
     dailyList = []
     #identifying by date--optionally, shrink this down to the SIDs run on a particular day
     for i in scheduleDF.date.unique():
-        dateFolder = os.path.abspath(outputFolder + '/' + i.strftime('%m-%d-%y') + '/')
+        dateFolder = os.path.abspath(outputFolder + "/" +i.strftime('%Y') + '/' + i.strftime('%m-%d-%y') + '/')
         if os.path.isdir(dateFolder) is False: #makes sure we have a date-specific outputs folder for individual animals' information
             os.makedirs(dateFolder)
         scheduleDay = scheduleDF[scheduleDF.date == i]
@@ -52,7 +52,7 @@ def global_datapull(db,dbFolder,outputFolder):
         #daily summary csv
         dailyDF = pd.DataFrame(data=outputSummary,columns=outputHeaders)
         dailyFile = dateFolder + '/' + i.strftime('%m-%d-%y') + '_summary.csv'
-        try: 
+        try:
             oldSummary = pd.read_csv(dailyFile)
             finDaily = pd.concat([oldSummary,dailyDF])
         except:
