@@ -8,10 +8,10 @@ import pandas as pd
 import datetime as dt
 import subprocess
 
-def global_datapull(db,dbFolder,outputFolder):
-    dataDF = pd.read_csv(dbFolder+'/tbl_Data.csv') #note that this syntax, whether or not there's the slash, seems to be an annoying powershell thing that may need tweaking
-    scheduleDF = pd.read_csv(dbFolder+'/tbl_Schedules.csv',index_col='SID')
-    notesDF = pd.read_csv(dbFolder+'/tbl_Schedule_Notes.csv')
+def global_datapull(db,oldDBdir,outputFolder):
+    dataDF = pd.read_csv(oldDBdir+'/tbl_Data.csv') #note that this syntax, whether or not there's the slash, seems to be an annoying powershell thing that may need tweaking
+    scheduleDF = pd.read_csv(oldDBdir+'/tbl_Schedules.csv',index_col='SID')
+    notesDF = pd.read_csv(oldDBdir+'/tbl_Schedule_Notes.csv')
     #okay. so these things are all given specific SIDs which have animal ids, who runs them, etc. We want to first construct a list of all of these IDs, which can be used to pull the correct data from all individuals...
     #here we will want to specify
     scheduleDF['date'] = [dt.datetime.strptime(i, '%m/%d/%y %H:%M:%S').date() for i in scheduleDF.SRunDate]
@@ -21,6 +21,7 @@ def global_datapull(db,dbFolder,outputFolder):
     dailyList = []
     #identifying by date--optionally, shrink this down to the SIDs run on a particular day
     for i in scheduleDF.date.unique():
+        print(i)
         dateFolder = os.path.abspath(outputFolder + "/" +i.strftime('%Y') + '/' + i.strftime('%m-%d-%y') + '/')
         if os.path.isdir(dateFolder) is False: #makes sure we have a date-specific outputs folder for individual animals' information
             os.makedirs(dateFolder)
@@ -43,7 +44,6 @@ def global_datapull(db,dbFolder,outputFolder):
                 totalNumTrials = 0
             #make the individual CSV per animal
             thisData['scheduleID'] = thisSch.SName
-            print(thisNotes['Animal ID'][0])
             animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0] + '_' + str(thisData.SID.unique()[0]) + '_'+ i.strftime('%m-%d-%y') + '.csv'
             thisData.to_csv(animal_outfile,index=False)
             for key in thisNotes.keys():
