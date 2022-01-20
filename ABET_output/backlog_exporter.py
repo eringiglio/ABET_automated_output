@@ -42,4 +42,8 @@ dbList.sort()
 for db in dbList: #for every database in our list of databases...
     print(db)
     oldDBdir = outputDir+db+'/'
-    out = global_datapull(db,oldDBdir,finalDir) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips
+    try:
+        out = global_datapull(db,oldDBdir,finalDir) #from the global_datapull: go ahead and take all those csvs and create a bunch of helpful little syncing tips
+    except:
+        print("db incomplete: %s" % db)
+        revisit_list.append(db)

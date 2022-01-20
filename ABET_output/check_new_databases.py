@@ -12,14 +12,14 @@ import shutil
 #this should be a dictionary of folders which you want to copy from a watched PC's ABET output directory to a secondary directory (to reduce any risk of file corruption while a database may be in use). Keys should be the original ABET System Folder location; values should be the location of this secondary directory.
 
 def check_new_databases():
-    db_inPath = "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/"
+    db_inPath = "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/db_inputs/"
     for db in os.listdir(db_inPath): #just remove everything in this folder to make things nice and tidy
         os.remove(os.path.join(db_inPath,db))
     copyDict = {
-        "G:/Other computers/chamber 1-4/ABET System Folder/" : "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch1-4/",
-        "G:/Other computers/chamber 5-8/ABET System Folder/" : "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch5-8/",
-        "G:/Other computers/chamber 9-12/ABET System Folder/" : "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch9-12/",
-        "G:/Other computers/chamber 13-16/ABET System Folder/" : "G:/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch13-16/"}
+        "/mnt/g/Other computers/chamber 1-4/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch1-4/",
+        "/mnt/g/Other computers/chamber 5-8/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch5-8/",
+        "/mnt/g/Other computers/chamber 9-12/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch9-12/",
+        "/mnt/g/Other computers/chamber 13-16/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch13-16/"}
     dbList = []
     for i in copyDict:
         fileList = os.listdir(i)
