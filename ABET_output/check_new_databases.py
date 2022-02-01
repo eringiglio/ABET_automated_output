@@ -19,7 +19,8 @@ def check_new_databases():
         "/mnt/g/Other computers/chamber 1-4/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch1-4/",
         "/mnt/g/Other computers/chamber 5-8/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch5-8/",
         "/mnt/g/Other computers/chamber 9-12/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch9-12/",
-        "/mnt/g/Other computers/chamber 13-16/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch13-16/"}
+        "/mnt/g/Other computers/chamber 13-16/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ch13-16/",
+        "/mnt/g/Other computers/ephys chamber/ABET System Folder/" : "/mnt/g/Shared drives/Grissom Lab UMN/ABETdata/ABETdb/ephys/"}
     dbList = []
     for i in copyDict:
         fileList = os.listdir(i)
