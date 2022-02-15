@@ -29,7 +29,7 @@ def global_datapull(db,oldDBdir,outputFolder):
         thisSIDlist = scheduleDay.index.unique() #at which point we can define SIDlist as these numbers only. remember, for scheduleDF but NOT dataDF the scheduleID is the index ID.
         outputSummary = []
         #outputHeaders = ['mouseID','date_run','scheduleName','numTrialsCompleted','PercentCorrect','numTrialsCorrect','numReversals','maxTrialLength','timeTrialCompleted','whoRan']
-        outputHeaders = ['mouseID','date_run','start_time','chamber','scheduleName','numTrialsCompleted','maxTrialLength','timeTrialCompleted','whoRan'] #v2 will involve figuring some of this out but it would actually be quite useful to have the individual outputs per animal
+        outputHeaders = ['mouseID','SID','date_run','start_time','chamber','scheduleName','numTrialsCompleted','maxTrialLength','timeTrialCompleted','whoRan'] #v2 will involve figuring some of this out but it would actually be quite useful to have the individual outputs per animal
         #still missing: 'PercentCorrect','numTrialsCorrect','numReversals',
         for j in thisSIDlist: #within each day....
             thisSch = scheduleDF.loc[j]
@@ -49,15 +49,16 @@ def global_datapull(db,oldDBdir,outputFolder):
             for key in thisNotes.keys():
                 if 'who' in key.lower():
                     whoKey = key #we don't name all the keys the same thing but some variant on 'who ran' is there, so I instruct the program to hunt through the keys for the name 'who'
-            outputSummary.append([thisNotes['Animal ID'][0],i.strftime('%m/%d/%y'),thisSch.time,thisSch.SEnviro,thisSch.SName,totalNumTrials,thisNotes.Max_Schedule_Time.loc[0],max(thisData.DTime),thisNotes[whoKey].loc[0]])
+            outputSummary.append([thisNotes['Animal ID'][0],j,i.strftime('%m/%d/%y'),thisSch.time,thisSch.SEnviro,thisSch.SName,totalNumTrials,thisNotes.Max_Schedule_Time.loc[0],max(thisData.DTime),thisNotes[whoKey].loc[0]])
         #daily summary csv
         dailyDF = pd.DataFrame(data=outputSummary,columns=outputHeaders)
         dailyFile = dateFolder + '/' + i.strftime('%m-%d-%y') + '_summary.csv'
         try:
             oldSummary = pd.read_csv(dailyFile)
             finDaily = pd.concat([oldSummary,dailyDF])
+            finDaily.drop_duplicates()
         except:
-            finDaily = dailyDF
+            finDaily = dailyDF.drop_duplicates()
         summaryCopy = outputFolder + 'daily_summaries/' + i.strftime('%m-%d-%y') + '_summary.csv'
         finDaily.to_csv(dailyFile,index=False)
         finDaily.to_csv(summaryCopy,index=False)
