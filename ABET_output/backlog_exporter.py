@@ -38,6 +38,8 @@ for i in fileName:                                          #convert each found 
 dbList = [x[0:len(x)-7] for x in fileName]
 dbList.sort()
 
+revisit_list = [] 
+
 #this will create a bunch of files in the output folder. next, pull those csvs apart into the animal-day csvs with summaries......
 for db in dbList: #for every database in our list of databases...
     print(db)

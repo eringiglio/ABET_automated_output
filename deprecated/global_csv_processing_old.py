@@ -16,31 +16,10 @@ def global_datapull(db,oldDBdir,outputFolder):
     #here we will want to specify
     scheduleDF['date'] = [dt.datetime.strptime(i, '%m/%d/%y %H:%M:%S').date() for i in scheduleDF.SRunDate]
     scheduleDF['time'] = [dt.datetime.strptime(i, '%m/%d/%y %H:%M:%S').time() for i in scheduleDF.SRunDate]
-    
-
-    #Fixing the 2037 files
-    badYear_dict = {
-                    "10-16-37": "10-16-23",
-                    "10-17-37": "10-17-23",
-                    "10-18-37": "06-19-24",
-                    }
-
-    if max(scheduleDF.date) > dt.datetime.strptime("01/01/30", '%m/%d/%y').date():
-        badYear_idx = scheduleDF[scheduleDF['date'] > dt.datetime.strptime("01/01/30", '%m/%d/%y').date()].index
-        for i in badYear_dict:
-            badYear_entry = dt.datetime.strptime(badYear_dict[i], "%m-%d-%y")
-            for j in badYear_idx:
-                if scheduleDF.loc[j].date == dt.datetime.strptime(i, "%m-%d-%y").date():
-                    scheduleDF.loc[j,'date'] = scheduleDF.loc[j,'date'].replace(month=badYear_entry.month, day=badYear_entry.day, year=badYear_entry.year)
-
-
-    """
     if max(scheduleDF.date) > dt.datetime.strptime("01/01/30", '%m/%d/%y').date():
         badYear_idx = scheduleDF[scheduleDF['date'] > dt.datetime.strptime("01/01/30", '%m/%d/%y').date()].index
         newdates = [x.replace(year=2023) for x in scheduleDF.loc[badYear_idx].date]
         scheduleDF.loc[badYear_idx,'date'] = newdates
-    """
-        
     #finding all animals in the dataframe...
     SIDlist = dataDF.SID.unique()
     dailyList = []
@@ -58,7 +37,9 @@ def global_datapull(db,oldDBdir,outputFolder):
         #still missing: 'PercentCorrect','numTrialsCorrect','numReversals',
         for j in thisSIDlist: #within each day....
             thisSch = scheduleDF.loc[j]
-            if "TestLine" in thisSch.SName:
+            if thisSch.SName == 'TestLines-PAL':
+                continue
+            elif thisSch.SName == 'TestLines-Pairwise':
                 continue
             thisData = dataDF[dataDF.SID == j] #"give me all the data that is under SID value j"
             if len(thisData) == 0:
@@ -77,10 +58,7 @@ def global_datapull(db,oldDBdir,outputFolder):
                 totalNumTrials = 0
             #make the individual CSV per animal
             thisData['scheduleID'] = thisSch.SName
-            try: 
-                animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0].lower() + '_' + str(thisData.SID.unique()[0]) + '_'+ i.strftime('%m-%d-%y') + '.csv'
-            except: 
-                continue
+            animal_outfile = dateFolder + '/' + thisNotes['Animal ID'][0].lower() + '_' + str(thisData.SID.unique()[0]) + '_'+ i.strftime('%m-%d-%y') + '.csv'
             thisData = thisData.sort_values('DAuto')
             thisData.to_csv(animal_outfile,index=False)
             outputSummary.append([thisNotes['Animal ID'][0],j,db,i.strftime('%m/%d/%y'),thisSch.time,thisSch.SEnviro,thisSch.SName,totalNumTrials,thisNotes.Max_Schedule_Time.loc[0],max(thisData.DTime),thisNotes[whoKey].loc[0]])
